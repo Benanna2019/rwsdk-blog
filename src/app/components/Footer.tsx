@@ -7,12 +7,12 @@ export function Footer() {
 	return (
 		<Section>
 			<footer className="text-center">
-				<div className="pb-4">
+				{/* <div className="pb-4">
 					<a className="underline hover:text-orange-600" href="/rss.xml">RSS</a> - <a
 						className="underline hover:text-orange-600"
 						href="/sitemap-index.xml">Sitemap</a
 					> - <a className="underline hover:text-orange-600" href="/tags">Tags</a>
-				</div>
+				</div> */}
 				<div>
 					<p>© {year.getFullYear()} - Ben Patton</p>
 				</div>

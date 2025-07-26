@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "rwsdk-content-collections",
+  "name": "ben-patton-personal-site",
   "main": "src/worker.tsx",
   "compatibility_date": "2024-09-23",
   "compatibility_flags": [
@@ -21,7 +21,7 @@
     ]
   },
   "vars": {
-    "WEBAUTHN_APP_NAME": "rwsdk-content-collections"
+    "WEBAUTHN_APP_NAME": "ben-patton-personal-site"
   },
   "migrations": [
     {
@@ -34,8 +34,8 @@
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "rwsdk-content-collections-slippery-opossum",
-      "database_id": "b249fad5-a145-4e60-8efa-79c539637d7f"
+      "database_name": "ben-patton-personal-site-light-sturgeon",
+      "database_id": "9605f017-36a7-4cf1-9d16-02573066544c"
     }
   ]
 }
