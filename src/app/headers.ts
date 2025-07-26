@@ -27,6 +27,6 @@ export const setCommonHeaders =
     // Defines trusted sources for content loading and script execution:
     headers.set(
       "Content-Security-Policy",
-      `default-src 'self'; script-src 'self' 'nonce-${nonce}' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; frame-src https://challenges.cloudflare.com https://www.youtube.com; object-src 'none';`
+      `default-src 'self'; script-src 'self' 'nonce-${nonce}' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' https://assets.tailwindcss.com; media-src 'self' https://assets.tailwindcss.com; frame-src https://challenges.cloudflare.com https://www.youtube.com; object-src 'none';`
     );
   };

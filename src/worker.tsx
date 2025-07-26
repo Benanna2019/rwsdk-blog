@@ -1,22 +1,24 @@
 import { defineApp, ErrorResponse } from "rwsdk/worker";
 import { route, render, prefix, layout } from "rwsdk/router";
 import { Document } from "@/app/Document";
-import { HomePage } from "@/app/pages/HomePage";
 import { setCommonHeaders } from "@/app/headers";
-import { userRoutes } from "@/app/pages/user/routes";
 import { sessions, setupSessionStore } from "./session/store";
 import { Session } from "./session/durableObject";
 import { type User, db, setupDb } from "@/db";
 import { env } from "cloudflare:workers";
 import { BlogIndex } from "@/app/pages/BlogIndex";
 import { BlogPost } from "@/app/pages/BlogPost";
+import BlogPostPage from "@/app/pages/BlogPostPage";
 import { BaseLayout } from "./app/Layout";
 export { SessionDurableObject } from "./session/durableObject";
 import { TagsPage } from "@/app/pages/TagsPage";
 import { TagPage } from "./app/pages/TagPage";
+import CoursePageLayout from "./app/layouts/CoursePageLayout";
+import CourseHomePage from "./app/pages/BlogHomePage";
 export type AppContext = {
   session: Session | null;
   user: User | null;
+  pathname: string;
 };
 
 export default defineApp([
@@ -24,6 +26,9 @@ export default defineApp([
   async ({ ctx, request, headers }) => {
     await setupDb(env);
     setupSessionStore(env);
+
+    const path = new URL(request.url).pathname;
+    ctx.pathname = path;
 
     try {
       ctx.session = await sessions.load(request);
@@ -50,13 +55,9 @@ export default defineApp([
     }
   },
   render(Document, [
-    layout(BaseLayout, [
-      route("/", HomePage),
-      route("/tags", TagsPage),
-      route("/blog", BlogIndex),
-      route("/blog/:slug", BlogPost),
-      route("/tags/:tag", TagPage),
-      prefix("/user", userRoutes),
+    layout(CoursePageLayout, [
+      route("/", CourseHomePage),
+      route("/blog/:slug", BlogPostPage),
     ]),
   ]),
 ]);

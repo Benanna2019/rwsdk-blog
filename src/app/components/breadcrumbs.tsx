@@ -14,7 +14,7 @@ export function Breadcrumbs(props: React.ComponentProps<"nav">) {
 export function BreadcrumbHome() {
   return (
     <a href="/" className="min-w-0 shrink-0 text-gray-950 dark:text-white">
-      Compass
+      benpatton
     </a>
   );
 }
@@ -46,7 +46,7 @@ export function Breadcrumb({
     <span
       className={clsx(
         className,
-        "min-w-0 truncate text-gray-950 last:text-gray-600 dark:last:text-gray-400",
+        "min-w-0 truncate text-gray-950 dark:text-gray-400 last:text-gray-600 dark:last:text-gray-400",
       )}
     >
       {children}

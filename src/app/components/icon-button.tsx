@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@headlessui/react";
 import { clsx } from "clsx";
 import type React from "react";

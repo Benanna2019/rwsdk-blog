@@ -1,6 +1,6 @@
 import { ChevronRightIcon } from "@/app/icons/chevron-right-icon";
 
-export function NextPageLink({
+export function PageLink({
   title,
   description,
   href,

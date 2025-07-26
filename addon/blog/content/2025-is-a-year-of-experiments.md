@@ -1,5 +1,5 @@
 ---
-"_id": "cm4yv0bfi00000cldf0vi5uhb"
+"_id": "cmdkviwhl000007l2g1vjcq94"
 title: "Experimenting for a the life we want"
 published: "December 21, 2024"
 slug: "experimenting-for-a-the-life-we-want"

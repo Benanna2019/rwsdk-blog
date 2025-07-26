@@ -13,7 +13,7 @@ export function PageSection({
       className="grid grid-cols-4 border-t border-gray-950/10 dark:border-white/10"
     >
       <div className="col-span-full sm:col-span-1">
-        <div className="-mt-px inline-flex border-t border-gray-950 pt-px dark:border-white">
+        <div className="-mt-px inline-flex ">
           <div className="pt-4 text-sm/7 font-semibold text-gray-950 sm:pt-10 dark:text-white">
             {title}
           </div>

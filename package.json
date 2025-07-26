@@ -27,13 +27,16 @@
     "prepare": "vibe-rules install cursor"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.6",
     "@prisma/adapter-d1": "~6.8.2",
     "@prisma/client": "~6.8.2",
     "@simplewebauthn/browser": "^13.1.0",
     "@simplewebauthn/server": "^13.1.1",
     "@tailwindcss/typography": "^0.5.16",
     "@tailwindcss/vite": "^4.1.10",
+    "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
+    "input-otp": "^1.4.2",
     "markdown-to-jsx": "^7.7.8",
     "rwsdk": "0.1.24",
     "tailwindcss": "^4.1.10"
@@ -41,6 +44,7 @@
   "devDependencies": {
     "@content-collections/core": "^0.9.0",
     "@content-collections/markdown": "^0.1.4",
+    "@content-collections/mdx": "^0.2.2",
     "@content-collections/vite": "^0.2.4",
     "@types/node": "^22.14.0",
     "@types/react": "^19.1.2",

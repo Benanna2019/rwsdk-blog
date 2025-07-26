@@ -1,7 +1,7 @@
 "use client";
 
 import { IconButton } from "@/app/components/icon-button";
-import type { Module } from "@/app/data/lessons";
+import type { BlogPost } from "@/app/data/blog-posts";
 import { SidebarIcon } from "@/app/icons/sidebar-icon";
 import {
   CloseButton,
@@ -10,7 +10,7 @@ import {
   DialogPanel,
 } from "@headlessui/react";
 import { clsx } from "clsx";
-import type React from "react";
+import  React from "react";
 import { createContext, useContext, useState } from "react";
 import { Navbar } from "./Navbar";
 import { Breadcrumbs, BreadcrumbHome, BreadcrumbSeparator, Breadcrumb } from "./breadcrumbs";
@@ -27,49 +27,47 @@ export const SidebarContext = createContext<{
   setIsMobileDialogOpen: () => { },
 });
 
-function CourseNavigation({
-  modules,
+function BlogNavigation({
+  posts,
   onNavigate,
   className,
 }: {
-  modules: Module[];
+  posts: BlogPost[];
   onNavigate?: () => void;
   className?: string;
 }) {
-  let pathname = "/course";
+  let pathname = "/";
 
   return (
     <div className={clsx(className, "space-y-8")}>
-      {modules.map((module) => (
-        <div key={module.id}>
-          <h2 className="text-base/7 font-semibold text-pretty text-gray-950 sm:text-sm/6 dark:text-white">
-            {module.title}
-          </h2>
-          <ul className="mt-4 flex flex-col gap-4 border-l border-gray-950/10 text-base/7 text-gray-700 sm:mt-3 sm:gap-3 sm:text-sm/6 dark:border-white/10 dark:text-gray-400">
-            {module.lessons.map((lesson) => (
-              <li
-                key={lesson.id}
-                className={clsx(
-                  "-ml-px flex border-l border-transparent pl-4",
-                  "hover:text-gray-950 hover:not-has-aria-[current=page]:border-gray-400 dark:hover:text-white",
-                  "has-aria-[current=page]:border-gray-950 dark:has-aria-[current=page]:border-white",
-                )}
+      <div>
+        <h2 className="text-base/7 font-semibold text-pretty text-gray-950 sm:text-sm/6 dark:text-white">
+          Blog Posts
+        </h2>
+        <ul className="mt-4 flex flex-col gap-4 border-l border-gray-950/10 text-base/7 text-gray-700 sm:mt-3 sm:gap-3 sm:text-sm/6 dark:border-white/10 dark:text-gray-400">
+          {posts.map((post) => (
+            <li
+              key={post._id}
+              className={clsx(
+                "-ml-px flex border-l border-transparent pl-4",
+                "hover:text-gray-950 hover:not-has-aria-[current=page]:border-gray-400 dark:hover:text-white",
+                "has-aria-[current=page]:border-gray-950 dark:has-aria-[current=page]:border-white",
+              )}
+            >
+              <a
+                href={`/blog/${post.slug}`}
+                aria-current={
+                  `/blog/${post.slug}` === pathname ? "page" : undefined
+                }
+                onClick={onNavigate}
+                className="aria-[current=page]:font-medium aria-[current=page]:text-gray-950 dark:aria-[current=page]:text-white"
               >
-                <a
-                  href={`/${lesson.id}`}
-                  aria-current={
-                    `/${lesson.id}` === pathname ? "page" : undefined
-                  }
-                  onClick={onNavigate}
-                  className="aria-[current=page]:font-medium aria-[current=page]:text-gray-950 dark:aria-[current=page]:text-white"
-                >
-                  {lesson.title}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+                {post.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
@@ -77,11 +75,11 @@ function CourseNavigation({
 function MobileNavigation({
   open,
   onClose,
-  modules,
+  posts,
 }: {
   open: boolean;
   onClose: () => void;
-  modules: Module[];
+  posts: BlogPost[];
 }) {
   return (
     <Dialog open={open} onClose={onClose} className="xl:hidden">
@@ -94,8 +92,8 @@ function MobileNavigation({
             </CloseButton>
           </div>
         </div>
-        <CourseNavigation
-          modules={modules}
+        <BlogNavigation
+          posts={posts}
           onNavigate={onClose}
           className="px-4 pb-4 sm:px-6"
         />
@@ -105,16 +103,14 @@ function MobileNavigation({
 }
 
 export function SidebarLayout({
-  modules,
+  posts,
   children,
 }: {
-  modules: Module[];
+  posts: BlogPost[];
   children: React.ReactNode;
 }) {
   let [isSidebarOpen, setIsSidebarOpen] = useState(true);
   let [isMobileDialogOpen, setIsMobileDialogOpen] = useState(false);
-
-  console.log("isSidebarOpen", isSidebarOpen);
 
   return (
     <SidebarContext.Provider
@@ -130,7 +126,7 @@ export function SidebarLayout({
         className="group"
       >
         <aside className="fixed inset-y-0 left-0 w-2xs overflow-y-auto border-r border-gray-950/10 group-data-sidebar-collapsed:hidden max-xl:hidden dark:border-white/10">
-          <nav aria-label="Course" className="px-6 py-4">
+          <nav aria-label="Blog" className="px-6 py-4">
             <div className="sticky top-4 flex h-6">
               <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
                 <SidebarIcon className="shrink-0 stroke-gray-950 dark:stroke-white" />
@@ -138,11 +134,11 @@ export function SidebarLayout({
               <MobileNavigation
                 open={isMobileDialogOpen}
                 onClose={() => setIsMobileDialogOpen(false)}
-                modules={modules}
+                posts={posts}
               />
             </div>
             <div className="mt-3">
-              <CourseNavigation modules={modules} className="max-xl:hidden" />
+              <BlogNavigation posts={posts} className="max-xl:hidden" />
             </div>
           </nav>
         </aside>
@@ -168,8 +164,6 @@ export function SidebarLayoutContent({
     setIsMobileDialogOpen,
   } = useContext(SidebarContext);
 
-  console.log("isSidebarOpen in SidebarLayoutContent", isSidebarOpen);
-
   return (
     <>
       <Navbar>
@@ -192,8 +186,11 @@ export function SidebarLayoutContent({
             <Breadcrumbs>
               <BreadcrumbHome />
               <BreadcrumbSeparator />
-              {Array.isArray(breadcrumbs) ? breadcrumbs.map((breadcrumb) => (
-                <Breadcrumb key={breadcrumb}>{breadcrumb}</Breadcrumb>
+              {Array.isArray(breadcrumbs) ? breadcrumbs.map((breadcrumb, index) => (
+                <React.Fragment key={breadcrumb}>
+                  <Breadcrumb >{breadcrumb}</Breadcrumb>
+                  {index < breadcrumbs.length - 1 && <BreadcrumbSeparator />}
+                </React.Fragment>
               )) : (
                 <Breadcrumb>{breadcrumbs}</Breadcrumb>
               )}
